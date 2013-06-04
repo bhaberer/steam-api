@@ -6,7 +6,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'simple-steam'
+    gem 'steam-api'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install simple-steam
+    $ gem install steam-api
 
 ## Usage
 
