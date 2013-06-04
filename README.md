@@ -1,6 +1,6 @@
-# Simple::Steam
+# SteamAPI
 
-TODO: Write a gem description
+`steam-api` is a simple gem to expose the Steam WebApi directly.
 
 ## Installation
 
