@@ -1,5 +1,11 @@
 # SteamAPI
 
+[![Gem Version](https://badge.fury.io/rb/steam-api.png)](http://badge.fury.io/rb/steam-api)
+[![Dependency Status](https://gemnasium.com/bhaberer/steam-api.png)](https://gemnasium.com/bhaberer/steam-api)
+[![Build Status](https://travis-ci.org/bhaberer/steam-api.png?branch=master)](https://travis-ci.org/bhaberer/steam-api)
+[![Coverage Status](https://coveralls.io/repos/bhaberer/steam-api/badge.png?branch=master)](https://coveralls.io/r/bhaberer/steam-api?branch=master)
+[![Code Climate](https://codeclimate.com/github/bhaberer/steam-api.png)](https://codeclimate.com/github/bhaberer/steam-api)
+
 `steam-api` is a simple gem to expose the Steam WebApi directly.
 
 ## Installation
