@@ -1,23 +1,27 @@
-require 'steam-api/version'
 require 'patron'
+
+require 'steam-api/version'
+require 'steam-api/patron'
 
 # A Ruby DSL for communicating with the Steam Web API.
 # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
 # @since 1.0.0
 module Steam
 
-  # The Patron object used to access the REST endpoint for the Steam API.
-  TARGET = Patron::Session.new
 
   module Apps
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamApps/'
+    TARGET.timeout  = 30000
 
     # Get Steam Applications
     # @return [Hash] A list of objects containing the title and app ID of each program
     #   available in the store.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAppList
     def Apps.get_all
-      TARGET.get([:GetAppList, :v2].join('/')).parse_json
+      TARGET.get([:GetAppList, :v2].join('/'))
     end
 
     # Get Servers at Address
@@ -40,6 +44,9 @@ module Steam
   end
 
   module Economy
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamEconomy/'
 
     # Get Asset Class Info
@@ -76,6 +83,9 @@ module Steam
   end
 
   module News
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamNews/'
 
     # Get News for App
@@ -94,6 +104,9 @@ module Steam
   end
 
   module Player
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     # Get Owned Games
     # @param [Hash] params Parameters to pass to the API
     # @option params [String] :key Steam Api Key
@@ -125,6 +138,9 @@ module Steam
   end
 
   module RemoteStorage
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamRemoteStorage/'
 
     # Get Published File Details
@@ -153,6 +169,9 @@ module Steam
   end
 
   module User
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamUser/'
 
     # Get Friend List
@@ -186,7 +205,7 @@ module Steam
     #   or "Private". In that case, only public data will be returned.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerSummaries
     def User.get_summaries(params = {})
-      TARGET.get([:GetPlayerSummaries, :v2, .sramsto_params].join('/')).parse_json
+      TARGET.get([:GetPlayerSummaries, :v2, params.to_params].join('/')).parse_json
     end
 
     # Get User Groups
@@ -196,7 +215,7 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetUserGroupList
     def User.get_groups(params = {})
-      TARGET.get([:GetUserGroupList, :v1, options.to_params].join('/')).parse_json
+      TARGET.get([:GetUserGroupList, :v1, params.to_params].join('/')).parse_json
     end
 
     # Resolve Vanity URL
@@ -207,11 +226,14 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/ResolveVanityURL
     def User.resolve_vanity_url(params = {})
-      TARGET.get([:ResolveVanityURL, :v0001, options.to_params].join('/')).parse_json
+      TARGET.get([:ResolveVanityURL, :v0001, params.to_params].join('/')).parse_json
     end
   end
 
   module UserStats
+    # The Patron object used to access the REST endpoint for the Steam API.
+    TARGET = Patron::Session.new
+
     TARGET.base_url = 'http://api.steampowered.com/ISteamUserStats/'
 
     # Get Global Achievement Percentages for App
@@ -222,7 +244,7 @@ module Steam
     # @return [Hash] The hash object of information on the global achievements overview of
     #   a specific game in percentages.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetGlobalAchievementPercentagesForApp
-    def UserStats.achievement_percentages(options)
+    def UserStats.achievement_percentages(params = {})
       TARGET.get([:GetGlobalAchievementPercentagesForApp, :v0002, params.to_params].join('/')).parse_json
     end
 
@@ -263,14 +285,9 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerAchievements
     def Steam.get_player_achievements(params = {})
-      TARGET.get([:GetPlayerAchievements, :v0001, options.to_params].join('/')).parse_json
+      TARGET.get([:GetPlayerAchievements, :v0001, params.to_params].join('/')).parse_json
     end
-
-    :q
-
-
   end
-
 
   private
 
@@ -287,15 +304,3 @@ module Steam
   end
 end
 
-module Patron
-  # Parse the JSON response of the Response's body into a standard ruby object.
-  # @return [Hash,String] The parsed body of the Response Object, or an Error.
-  def parse_json
-    body = self.body
-    begin
-      JSON.parse(body)
-    rescue JSON::ParserError
-      return { :error => 'Problem Parsing the JSON Response from the API', :body => body }
-    end
-  end
-end
