@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["bhaberer@gmail.com"]
   gem.description   = %q{Simple Steam Gem}
   gem.summary       = %q{Simple Gem to interact witht the Steam Web API}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/bhaberer/steam-api"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
