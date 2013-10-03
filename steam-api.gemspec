@@ -17,11 +17,15 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.required_ruby_version = '>= 2.0.0'
+
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'coveralls'
 
-  gem.add_dependency    'patron',       '~> 0.4.18'
+  # gem.add_dependency    'patron',       '~> 0.4.18'
+  gem.add_dependency    'weary',        '1.1.3'
+  gem.add_dependency    'faraday'
   gem.add_dependency    'multi_json',   '1.7.7'
   gem.add_dependency    'json',         '~> 1.7.7'
 end
