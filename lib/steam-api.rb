@@ -1,10 +1,15 @@
+# -*- encoding: utf-8 -*-
 require 'weary'
+require 'faraday'
+require 'json'
+
 require 'steam-api/version'
 require 'steam-api/steam'
+require 'steam-api/client'
+require 'steam-api/exceptions'
 require 'steam-api/steam/user'
-#require 'steam-api/apps'
-#require 'steam-api/economy'
-#require 'steam-api/player'
-#require 'steam-api/remote_storage'
-#require 'steam-api/user_stats'
-
+require 'steam-api/steam/apps'
+# require 'steam-api/steam/economy'
+# require 'steam-api/steam/player'
+# require 'steam-api/steam/remote_storage'
+# require 'steam-api/steam/user_stats'

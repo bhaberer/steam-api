@@ -1,9 +1,6 @@
 module Steam
-  module Economy
-    # The Patron object used to access the REST endpoint for the Steam API.
-    TARGET = Patron::Session.new
-
-    TARGET.base_url = 'http://api.steampowered.com/ISteamEconomy/'
+  module Economy < Weary::Client
+    domain 'http://api.steampowered.com/ISteamEconomy/'
 
     # Get Asset Class Info
     # @param [Hash] params Parameters to pass to the API
@@ -18,8 +15,9 @@ module Steam
     #   parameter is omitted the string token will be returned for the strings. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
-    def Economy.asset_info(params = {})
-      TARGET.get([:GetAssetClassInfo, :v0001, params.to_params].join('/')).parse_json
+    get :asset_info '/GetAssetClassInfo/v0001' do |resource|
+      resource.required :key, :appid, :class_count, :classidN
+      resource.optional :instanceidN, :language
     end
 
     # Get Asset Prices
@@ -33,8 +31,9 @@ module Steam
     # @option params [String] :currency The ISO 4217 code for currency specific filtering. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAssetPrices
-    def Economy.asset_prices(params)
-      TARGET.get([:GetAssetPrices, :v0001, params.to_params].join('/')).parse_json
+    get :asset_prices, '/GetAssetPrices/v0001' do |resource|
+      resource.required :key, :appid
+      resource.optional :language, :currency
     end
   end
 end

@@ -2,11 +2,8 @@
 # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
 # @since 1.0.0
 module Steam
-  module News
-    # The Patron object used to access the REST endpoint for the Steam API.
-    TARGET = Patron::Session.new
-
-    TARGET.base_url = 'http://api.steampowered.com/ISteamNews/'
+  class News < Weary::Client
+    domain 'http://api.steampowered.com/ISteamNews/'
 
     # Get News for App
     # @param [Hash] params Parameters to pass to the API
@@ -18,8 +15,9 @@ module Steam
     # @option params [String] :feeds Commma-seperated list of feed names to return news for. (Optional)
     # @return [Hash] A hash object of the latest news items for a game specified by its appID.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
-    def News.get(appid, params = {})
-      TARGET.get([:GetNewsForApp, :v0002, params.to_params].join('/')).parse_json
+    get :get, '/GetNewsForApp/v0002' do |resource|
+      resource.required :appid, :key
+      resource.optional :count, :maxlength, :enddate, :feeds
     end
   end
 end
