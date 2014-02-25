@@ -24,11 +24,6 @@ describe Steam::Apps do
       Steam::Apps.get_servers(addr: '192.168.1.1')
         .should == []
     end
-
-    it 'should capture json errors' do
-      Steam::Apps.get_servers(addr: nil)
-        .should == { error: '500 Internal Server Error' }
-    end
   end
 
   describe '.up_to_date' do

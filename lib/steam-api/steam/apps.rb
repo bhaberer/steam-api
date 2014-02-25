@@ -4,7 +4,6 @@ module Steam
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
   # @since 1.0.0
   module Apps
-
     # Get Steam Applications
     # @return [Hash] A list of objects containing the title and app ID of each program
     #   available in the store.

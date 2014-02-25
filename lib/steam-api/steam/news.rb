@@ -1,10 +1,9 @@
-# A Ruby DSL for communicating with the Steam Web API.
-# @see https://developer.valvesoftware.com/wiki/Steam_Web_API
-# @since 1.0.0
+# -*- encoding: utf-8 -*-
 module Steam
-  class News < Weary::Client
-    domain 'http://api.steampowered.com/ISteamNews/'
-
+  # A Ruby DSL for communicating with the Steam Web API.
+  # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
+  # @since 1.0.0
+  module News
     # Get News for App
     # @param [Hash] params Parameters to pass to the API
     # @option params [String] :appid The application ID for the Steam Game.
@@ -15,9 +14,26 @@ module Steam
     # @option params [String] :feeds Commma-seperated list of feed names to return news for. (Optional)
     # @return [Hash] A hash object of the latest news items for a game specified by its appID.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
-    get :get, '/GetNewsForApp/v0002' do |resource|
-      resource.required :appid, :key
-      resource.optional :count, :maxlength, :enddate, :feeds
+    def self.get(appid, params: {})
+      params[:appid] = appid
+      response = build_client.get 'GetNewsForApp/v2', params: params
+      parse_response(response)
+    end
+
+    private
+
+    def self.build_client
+      Steam::Client.new('http://api.steampowered.com/ISteamNews')
+    end
+
+    def self.parse_response(response)
+      response = JSON.parse(response.body)
+      fail Steam::JSONError unless response.key?('appnews') &&
+                                   response['appnews'].key?('newsitems')
+      response = response['appnews']['newsitems']
+      response
+    rescue JSON::ParserError
+      { error: '500 Internal Server Error' }
     end
   end
 end

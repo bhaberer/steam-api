@@ -1,10 +1,11 @@
+# -*- encoding: utf-8 -*-
 module Steam
-  module Economy < Weary::Client
-    domain 'http://api.steampowered.com/ISteamEconomy/'
-
+  # A Ruby DSL for communicating with the Steam Web API.
+  # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
+  # @since 1.0.0
+  module Economy
     # Get Asset Class Info
     # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :key Steam Api Key
     # @option params [String] :appid The application ID for the Steam Game.
     # @option params [Fixnum] :class_count The number of classids passed to the request.
     # @option params [Fixnum] :classidN Where N can be a series of sequential numbers to form a list of class IDs. [1] [2]
@@ -15,14 +16,15 @@ module Steam
     #   parameter is omitted the string token will be returned for the strings. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
-    get :asset_info '/GetAssetClassInfo/v0001' do |resource|
-      resource.required :key, :appid, :class_count, :classidN
-      resource.optional :instanceidN, :language
+    def self.asset_info(appid, params: {})
+      params[:appid] = appid
+      response = build_client.get 'GetAssetClassInfo/v1',
+                 params: params
+      parse_response(response)
     end
 
     # Get Asset Prices
     # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :key Steam Api Key
     # @option params [String] :appid The application ID for the Steam Game.
     # @option params [String] :language The ISO639-1 language code for the language all localized
     #   strings should be returned in. Not all strings have been translated to every language.
@@ -31,9 +33,31 @@ module Steam
     # @option params [String] :currency The ISO 4217 code for currency specific filtering. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAssetPrices
-    get :asset_prices, '/GetAssetPrices/v0001' do |resource|
-      resource.required :key, :appid
-      resource.optional :language, :currency
+    def self.asset_prices(appid, language: nil, currency: nil)
+      params = { appid: appid }
+      params[:language] = language unless language.nil?
+      params[:currency] = currency unless currency.nil?
+      response = build_client.get 'GetAssetPrices/v1',
+                 params: params
+      parse_response(response)
+    end
+
+    private
+
+    def self.build_client
+      Steam::Client.new('http://api.steampowered.com/ISteamEconomy')
+    end
+
+    def self.parse_response(response)
+      response = JSON.parse(response.body)
+      fail Steam::JSONError unless response.key?('result') &&
+                                   response['result'].key?('success')
+      response = response['result']
+      fail Steam::SteamError unless response['success']
+      response.delete('success')
+      response
+    rescue JSON::ParserError
+      { error: '500 Internal Server Error' }
     end
   end
 end
