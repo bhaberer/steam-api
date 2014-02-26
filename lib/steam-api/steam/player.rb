@@ -16,10 +16,10 @@ module Steam
     #   described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of
     #   integers (in JSON: "appids_filter: [ 440, 500, 550 ]" )
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames
-    def self.owned_games(params: {})
-      response = client.get 'GetOwnedGames/v1',
-                                  params: params
-      response
+    def self.owned_games(steamid, params: {})
+      params[:steamid] = steamid
+      response = client.get 'GetOwnedGames/v1', params: params
+      response.parse_key('response')
     end
 
     # Get Recently Played Games
@@ -29,9 +29,10 @@ module Steam
     #   games a person has played in the last 2 weeks is typically very small)
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetRecentlyPlayedGames
     def self.recently_played_games(steamid, params: {})
+      params[:steamid] = steamid
       response = client.get 'GetRecentlyPlayedGames/v1',
-                                  params: params
-      response
+                            params: params
+      response.parse_key('response')
     end
 
     # Get a player's Steam Level
@@ -40,16 +41,17 @@ module Steam
     def self.steam_level(steamid)
       response = client.get 'GetSteamLevel/v1',
                             params: { steamid: steamid }
-      response
+      response.parse_key('response')
+              .parse_key('player_level')
     end
 
-    # Get a player's Steam Level
+    # Get a player's Steam badges
     # @param [Fixnum] steamid The SteamID of the account.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetBadges
     def self.badges(steamid)
       response = client.get 'GetBadges/v1',
                             params: { steamid: steamid }
-      response
+      response.parse_key('response')
     end
 
     # Get a player's Steam Level
@@ -58,7 +60,8 @@ module Steam
     def self.community_badge_progress(steamid)
       response = client.get 'GetCommunityBadgeProgress/v1',
                             params: { steamid: steamid }
-      response
+      response.parse_key('response')
+              .parse_key('quests')
     end
 
     private
