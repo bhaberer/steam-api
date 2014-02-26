@@ -6,6 +6,10 @@ module Steam
       @conn = Faraday.new(url: url)
     end
 
+    # overriding the get method of Faraday to make things simpler.
+    # @param [String] resource the resource you're targeting
+    # @param [Hash] params Hash of parameters to pass to the resource
+    # @param [String] key Steam API key
     def get(resource, params: {}, key: Steam.apikey)
       params[:key] = key
       response = @conn.get resource, params

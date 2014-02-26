@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 module Steam
-  # A Ruby DSL for communicating with the Steam Web API.
+  # A Ruby DSL for communicating with the Apps portion of the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
   # @since 1.0.0
   module Apps
@@ -16,9 +16,9 @@ module Steam
     end
 
     # Get Servers at Address
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :addr IP or IP:queryport to list
+    # @param [String] addr IP or IP:queryport to list
     # @return [Hash] A hash containing the API response
+    # @see http://wiki.teamfortress.com/wiki/WebAPI/GetServersAtAddress
     def self.get_servers(addr: nil)
       response = client.get 'GetServersAtAddress/v1',
                             params: { addr: URI.escape(addr) }
@@ -28,9 +28,8 @@ module Steam
     end
 
     # Check if a given version of an App is current
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [Fixnum] appid AppID of game
-    # @option params [Fixnum] version The installed version of the game
+    # @param [Fixnum] appid AppID of game
+    # @param [Fixnum] version The installed version of the game
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
     def self.up_to_date(appid: nil, version: nil)

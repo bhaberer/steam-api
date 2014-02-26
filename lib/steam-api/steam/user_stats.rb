@@ -5,7 +5,7 @@ module Steam
   # @since 1.0.0
   module UserStats
     # Get Global Achievement Percentages for App
-    # @param [Fixnum] :appid The ID of the game or application
+    # @param [Fixnum] appid The ID of the game or application
     # @return [Hash] The hash object of information on the global achievements overview of
     #   a specific game in percentages.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetGlobalAchievementPercentagesForApp
@@ -18,7 +18,7 @@ module Steam
     end
 
     # Get Global Stats for Game
-    # @param [Fixnum] :appid The ID of the game or application
+    # @param [Fixnum] appid The ID of the game or application
     # @param [Hash] params Parameters to pass to the API
     # @option params [Fixnum] :count Number of stats to get data for.
     # @option params [String] :name[0] Names of the stats to get. For more than one value, use
@@ -37,7 +37,7 @@ module Steam
 
     # Get stat schema
     # @param [Fixnum] appid The application ID for the Steam Game.
-    # @param [String] l (Optional) Language
+    # @param [String] language (Optional) Language
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetSchemaForGame
     def self.game_schema(appid, language: nil)
@@ -59,10 +59,9 @@ module Steam
     end
 
     # Get Player Achievements
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [Fixnum] :steamid 64 bit Steam ID to return Achievements list for.
-    # @option params [Fixnum] :appid AppID to get achievements for
-    # @option params [String] :language Language. If specified, it will return language data for
+    # @param [Fixnum] steamid 64 bit Steam ID to return Achievements list for.
+    # @param [Fixnum] appid AppID to get achievements for
+    # @param [String] language Language. If specified, it will return language data for
     #   the requested language. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerAchievements

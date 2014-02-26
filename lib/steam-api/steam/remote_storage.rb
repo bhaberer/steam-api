@@ -6,7 +6,6 @@ module Steam
   class RemoteStorage
     # Get Published File Details
     # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :key Steam Api Key
     # @option params [Fixnum] :itemcount Number of items being requested
     # @option params [Fixnum] :publishedfileids Published file id to look up
     # @return [Hash] A hash containing the API response

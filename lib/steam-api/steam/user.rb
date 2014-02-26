@@ -5,8 +5,8 @@ module Steam
   # @since 1.0.0
   module User
     # Get User's Friend List
-    # @param [Hash] params Parameters to pass to the API
-    # @param [String] :relationship Relationship filter.
+    # @param [String] steamid 
+    # @param [String] relationship Relationship filter.
     #   Possibles values: all, friend.
     # @return [Hash] A hash object resulting from the API call; should
     #   returns the friend list of any Steam user, provided their Steam
@@ -22,7 +22,7 @@ module Steam
     end
 
     # Get Multiple Player Bans
-    # @param [Array] :steamids Array of SteamIDs
+    # @param [Array] steamids Array of SteamIDs
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerBans
     def self.bans(steamids)
@@ -44,8 +44,7 @@ module Steam
     end
 
     # Get Player Summaries
-    # @param [String] :steamids List of player's steamids
-    # @param [Array] :steamids List of player's steamids
+    # @param [Array] steamids List of player's steamids
     # @return [Hash] The hash object resulting from the API call. Some data
     #   associated with a Steam account may be hidden if the user has their
     #   profile visibility set to "Friends Only" or "Private". In that case,
@@ -59,9 +58,7 @@ module Steam
     end
 
     # Get User Groups
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [Fixnum] :steamid 64 bit Steam ID to return friend list.
-    # @option params [String] :key Steam Api Key
+    # @param [Fixnum] steamid 64bit Steam ID to return friend list.
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetUserGroupList
     def self.groups(steamid)
@@ -72,10 +69,8 @@ module Steam
     end
 
     # Resolve Vanity URL
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :vanityurl The vanity URL part of a user's Steam
+    # @param [String] vanityurl The vanity URL part of a user's Steam
     #   profile URL. This is the basename of http://steamcommunity.com/id/ URLs
-    # @option params [String] :key Steam Api Key
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/ResolveVanityURL
     def self.vanity_to_steamid(vanityurl)

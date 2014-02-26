@@ -1,12 +1,14 @@
 # -*- encoding: utf-8 -*-
 # Base class def
 module Steam
+  @apikey = ENV['STEAM_API_KEY']
+
   def self.apikey
-    return ENV['STEAM_API_KEY'] if ENV.key?('STEAM_API_KEY')
-    fail ArgumentError, 'Please set your Steam API key.'
+    fail ArgumentError, 'Please set your Steam API key.' if @apikey.nil?
+    @apikey
   end
 
   def self.apikey=(key)
-    ENV['STEAM_API_KEY'] = key
+    @apikey = key
   end
 end
