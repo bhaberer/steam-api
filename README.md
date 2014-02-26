@@ -8,6 +8,8 @@
 
 `steam-api` is a simple gem to expose the Steam WebApi directly.
 
+THe Gem is not quite finished, but once it is I will tag v1, still ahev a lot of work to do especially on the docs.
+
 ## Installation
 
 Add this line to your application's Gemfile:
