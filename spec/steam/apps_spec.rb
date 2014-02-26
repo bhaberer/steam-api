@@ -48,8 +48,8 @@ describe Steam::Apps do
     end
 
     it 'should capture json errors' do
-      Steam::Apps.up_to_date(appid: nil, version: 'foo')
-        .should == { error: '500 Internal Server Error' }
+      lambda { Steam::Apps.up_to_date(appid: nil, version: 'foo') }
+        .should raise_error
     end
   end
 end

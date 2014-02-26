@@ -17,9 +17,9 @@ module Steam
     #   integers (in JSON: "appids_filter: [ 440, 500, 550 ]" )
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames
     def self.owned_games(params: {})
-      response = build_client.get 'IPlayerService/GetOwnedGames/v1',
+      response = client.get 'GetOwnedGames/v1',
                                   params: params
-      JSON.parse response
+      response
     end
 
     # Get Recently Played Games
@@ -27,28 +27,44 @@ module Steam
     # @option params [String] :steamid The SteamID of the account.
     # @option params [String] :count Optionally limit to a certain number of games (the number of
     #   games a person has played in the last 2 weeks is typically very small)
-    # @param [String] apikey Steam Api Key
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetRecentlyPlayedGames
     def self.recently_played_games(steamid, params: {})
-      response = build_client.get 'GetRecentlyPlayedGames/v1',
+      response = client.get 'GetRecentlyPlayedGames/v1',
                                   params: params
-      JSON.parse response
+      response
+    end
+
+    # Get a player's Steam Level
+    # @param [Fixnum] steamid The SteamID of the account.
+    # @see http://wiki.teamfortress.com/wiki/WebAPI/GetSteamLevel
+    def self.steam_level(steamid)
+      response = client.get 'GetSteamLevel/v1',
+                            params: { steamid: steamid }
+      response
+    end
+
+    # Get a player's Steam Level
+    # @param [Fixnum] steamid The SteamID of the account.
+    # @see http://wiki.teamfortress.com/wiki/WebAPI/GetBadges
+    def self.badges(steamid)
+      response = client.get 'GetBadges/v1',
+                            params: { steamid: steamid }
+      response
+    end
+
+    # Get a player's Steam Level
+    # @param [Fixnum] steamid The SteamID of the account.
+    # @see http://wiki.teamfortress.com/wiki/WebAPI/GetCommunityBadgeProgress
+    def self.community_badge_progress(steamid)
+      response = client.get 'GetCommunityBadgeProgress/v1',
+                            params: { steamid: steamid }
+      response
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com')
-    end
-
-    def self.parse_response(response)
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('appnews') &&
-                                   response['appnews'].key?('newsitems')
-      response = response['appnews']['newsitems']
-      response
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+    def self.client
+      build_client 'IPlayerService'
     end
   end
 end

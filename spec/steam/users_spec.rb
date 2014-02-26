@@ -15,8 +15,8 @@ describe Steam::User do
     end
 
     it 'should return an error on a bad friend id' do
-      Steam::User.friends('765611')
-        .should == { error: '500 Internal Server Error' }
+      lambda { Steam::User.friends('765611') }
+        .should raise_error
     end
 
     it 'should return  the same content for :friends and :all' do

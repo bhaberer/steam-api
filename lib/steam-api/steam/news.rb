@@ -16,24 +16,15 @@ module Steam
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
     def self.get(appid, params: {})
       params[:appid] = appid
-      response = build_client.get 'GetNewsForApp/v2', params: params
-      parse_response(response)
+      client.get('GetNewsForApp/v2', params: params)
+        .parse_key('appnews')
+        .parse_key('newsitems')
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com/ISteamNews')
-    end
-
-    def self.parse_response(response)
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('appnews') &&
-                                   response['appnews'].key?('newsitems')
-      response = response['appnews']['newsitems']
-      response
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+    def self.client
+      build_client 'ISteamNews'
     end
   end
 end

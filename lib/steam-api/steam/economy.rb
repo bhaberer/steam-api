@@ -18,7 +18,7 @@ module Steam
     # @see http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
     def self.asset_info(appid, params: {})
       params[:appid] = appid
-      response = build_client.get 'GetAssetClassInfo/v1',
+      response = client.get 'GetAssetClassInfo/v1',
                  params: params
       parse_response(response)
     end
@@ -37,27 +37,22 @@ module Steam
       params = { appid: appid }
       params[:language] = language unless language.nil?
       params[:currency] = currency unless currency.nil?
-      response = build_client.get 'GetAssetPrices/v1',
+      response = client.get 'GetAssetPrices/v1',
                  params: params
       parse_response(response)
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com/ISteamEconomy')
+    def self.client
+      build_client 'ISteamEconomy'
     end
 
     def self.parse_response(response)
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('result') &&
-                                   response['result'].key?('success')
-      response = response['result']
-      fail Steam::SteamError unless response['success']
+      response = response.parse_key('result')
+      response.check_success
       response.delete('success')
       response
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
     end
   end
 end

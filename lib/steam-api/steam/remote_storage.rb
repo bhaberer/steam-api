@@ -12,9 +12,8 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPublishedFileDetails
     def self.published_file(params: {})
-      response = build_client.get 'GetPublishedFileDetails/v1',
-                                  params: params
-      JSON.parse response
+      response = client.get 'GetPublishedFileDetails/v1', params: params
+      response
     end
 
     # Get UGC File Details
@@ -27,25 +26,14 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetUGCFileDetails
     def self.ugc_file(params: {})
-      response = build_client.get 'GetUGCFileDetails/v1',
-                                  params: params
-      JSON.parse response
+      response = client.get 'GetUGCFileDetails/v1', params: params
+      response
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com/ISteamRemoteStorage')
-    end
-
-    def self.parse_response(response)
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('appnews') &&
-                                   response['appnews'].key?('newsitems')
-      response = response['appnews']['newsitems']
-      response
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+    def self.client
+      build_client 'ISteamRemoteStorage'
     end
   end
 end

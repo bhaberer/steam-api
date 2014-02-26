@@ -8,7 +8,10 @@ module Steam
 
     def get(resource, params: {}, key: Steam.apikey)
       params[:key] = key
-      @conn.get resource, params
+      response = @conn.get resource, params
+      JSON.parse(response.body)
+    rescue JSON::ParserError
+      { error: '500 Internal Server Error' }
     end
   end
 end

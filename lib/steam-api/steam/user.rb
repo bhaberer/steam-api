@@ -13,16 +13,12 @@ module Steam
     #   Community profile visibility is set to "Public".
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetFriendList
     def self.friends(steamid, relationship: :all)
-      response =
-        build_client.get 'GetFriendList/v1/',
-                         params: { steamid: steamid,
-                                   relationship: relationship }
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('friendslist')
-      return {} unless response['friendslist'].key?('friends')
-      response['friendslist']['friends']
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+      response = client.get 'GetFriendList/v1/',
+                            params: { steamid: steamid,
+                                      relationship: relationship }
+      response = response.parse_key('friendslist')
+                         .parse_key('friends')
+      response
     end
 
     # Get Multiple Player Bans
@@ -31,12 +27,9 @@ module Steam
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerBans
     def self.bans(steamids)
       steamids = [steamids] unless steamids.is_a?(Array)
-      response =
-        build_client.get 'GetPlayerBans/v1/',
-                         params: { steamids: steamids.join(',') }
-      JSON.parse response.body
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+      response = client.get 'GetPlayerBans/v1/',
+                            params: { steamids: steamids.join(',') }
+      response
     end
 
     # Get Player Summaries
@@ -47,7 +40,7 @@ module Steam
     #   only public data will be returned.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerSummaries
     def self.summary(steamid)
-      Steam::User.summaries([steamid]).first
+      summaries([steamid]).first
     end
 
     # Get Player Summaries
@@ -59,11 +52,10 @@ module Steam
     #   only public data will be returned.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerSummaries
     def self.summaries(steamids)
-      response = build_client.get 'GetPlayerSummaries/v2/',
-                                  params: { steamids: steamids.join(',') }
-      JSON.parse(response.body)['response']['players']
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+      response = client.get 'GetPlayerSummaries/v2/',
+                            params: { steamids: steamids.join(',') }
+      response.parse_key('response')
+              .parse_key('players')
     end
 
     # Get User Groups
@@ -73,17 +65,10 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetUserGroupList
     def self.groups(steamid)
-      response =
-        build_client.get 'GetUserGroupList/v1', params: { steamid: steamid }
-      response = JSON.parse(response.body)
-      fail Steam::JSONError unless response.key?('response')
-      response = response['response']
-      fail Steam::JSONError unless response.key?('success') &&
-                                   response.key?('groups')
-      fail Steam::SteamError unless response['success']
-      response['groups']
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+      response = client.get 'GetUserGroupList/v1', params: { steamid: steamid }
+      response = response.parse_key('response')
+      response.check_success
+      response.parse_key('groups')
     end
 
     # Resolve Vanity URL
@@ -94,23 +79,17 @@ module Steam
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/ResolveVanityURL
     def self.vanity_to_steamid(vanityurl)
-      response = build_client.get 'ResolveVanityURL/v1',
-                                  params: { vanityurl: vanityurl }
-      response = JSON.parse response.body
-      fail Steam::JSONError unless response.key?('response')
-      response = response['response']
-      fail Steam::JSONError unless response.key?('success') &&
-                                   response.key?('steamid')
-      fail Steam::SteamError unless response['success']
-      response['steamid']
-    rescue JSON::ParserError
-      { error: '500 Internal Server Error' }
+      response = client.get 'ResolveVanityURL/v1',
+                            params: { vanityurl: vanityurl }
+      response = response.parse_key('response')
+      response.check_success(success_condition: 1)
+      response.parse_key('steamid')
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com/ISteamUser')
+    def self.client
+      build_client 'ISteamUser'
     end
   end
 end

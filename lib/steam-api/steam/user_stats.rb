@@ -5,23 +5,21 @@ module Steam
   # @since 1.0.0
   module UserStats
     # Get Global Achievement Percentages for App
-    # @param [Fixnum] :appid The ID of the game to retrieve achievement percentages
-    #   for. This can be the ID of any Steamworks game with achievements available.
+    # @param [Fixnum] :appid The ID of the game or application
     # @return [Hash] The hash object of information on the global achievements overview of
     #   a specific game in percentages.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetGlobalAchievementPercentagesForApp
     def self.achievement_percentages(appid)
-      response = build_client.get 'GetGlobalAchievementPercentagesForApp/v2',
-                                  params: { gameid: appid }
-      response = JSON.parse response.body
-      response = parse_key(response, 'achievementpercentages')
-      response = parse_key(response, 'achievements')
+      response = client.get 'GetGlobalAchievementPercentagesForApp/v2',
+                            params: { gameid: appid }
+      response = response.parse_key('achievementpercentages')
+                         .parse_key('achievements')
       response
     end
 
     # Get Global Stats for Game
+    # @param [Fixnum] :appid The ID of the game or application
     # @param [Hash] params Parameters to pass to the API
-    # @option params [String] :appid The application ID for the Steam Game.
     # @option params [Fixnum] :count Number of stats to get data for.
     # @option params [String] :name[0] Names of the stats to get. For more than one value, use
     #   a parameter for each request. (name[0], name[1], ...) Not all stats are globally
@@ -31,24 +29,33 @@ module Steam
     # @option params [String] :enddate End date for daily totals (unix epoch timestamp). (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetGlobalStatsForGame
-    def self.global_game(appid, params: {})
-      response = build_client.get 'GetGlobalStatsForGame/v1',
-                                  params: params
-      JSON.parse response.body
+    def self.global_for_game(appid, params: {})
+      params[:appid] = appid
+      response = client.get 'GetGlobalStatsForGame/v1', params: params
+      response.parse_key('response')
+    end
+
+    # Get stat schema
+    # @param [Fixnum] appid The application ID for the Steam Game.
+    # @param [String] l (Optional) Language
+    # @return [Hash] A hash containing the API response
+    # @see http://wiki.teamfortress.com/wiki/WebAPI/GetSchemaForGame
+    def self.game_schema(appid, language: nil)
+      params = { appid: appid }
+      params[:l] = language unless language.nil?
+      response = client.get 'GetSchemaForGame/v2', params: params
+      response.parse_key('game')
     end
 
     # Get Number of Current Players
-    # @param [Hash] params Parameters to pass to the API
-    # @option params [Fixnum] :appid AppID that we're getting user count for
+    # @param [Fixnum] appid to pass to the API
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetNumberOfCurrentPlayers
     def self.player_count(appid)
-      response = build_client.get 'GetNumberOfCurrentPlayers/v1',
+      response = client.get 'GetNumberOfCurrentPlayers/v1',
                                   params: { appid: appid }
-      response = JSON.parse response.body
-      response = parse_key(response, 'response')
-      response = parse_key(response, 'player_count')
-      response
+      response.parse_key('response')
+              .parse_key('player_count')
     end
 
     # Get Player Achievements
@@ -59,21 +66,20 @@ module Steam
     #   the requested language. (Optional)
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerAchievements
-    def self.player_achievements(params: {})
-      response = build_client.get 'GetPlayerAchievements/v1',
-                                  params: params
-      JSON.parse response
+    def self.player_achievements(appid, steamid, language: nil)
+      params = { appid: appid, steamid: steamid }
+      params[:l] = language unless language.nil?
+      response = client.get 'GetPlayerAchievements/v1', params: params
+      response = response.parse_key('playerstats')
+      response.check_success
+      response.delete('success')
+      response
     end
 
     private
 
-    def self.build_client
-      Steam::Client.new('http://api.steampowered.com/ISteamUserStats')
-    end
-
-    def self.parse_key(response, key)
-      fail Steam::JSONError unless response.key?(key)
-      response[key]
+    def self.client
+      build_client('ISteamUserStats')
     end
   end
 end
