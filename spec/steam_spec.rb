@@ -25,9 +25,4 @@ describe Steam do
     Steam.apikey.should_not == old
     Steam.apikey.should == 'blah'
   end
-
-  it 'should update the ENV variable if set' do
-    Steam.apikey = 'test'
-    ENV['STEAM_API_KEY'].should == 'test'
-  end
 end
