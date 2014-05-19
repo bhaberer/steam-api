@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-require 'weary'
 require 'faraday'
 require 'json'
 

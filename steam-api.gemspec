@@ -21,8 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'coveralls'
 
-  gem.add_dependency    'weary',        '1.1.3'
-  gem.add_dependency    'faraday'
-  gem.add_dependency    'multi_json',   '1.7.7'
-  gem.add_dependency    'json',         '~> 1.7.7'
+  gem.add_dependency    'faraday', '0.9.0'
+  gem.add_dependency    'multi_json', '>= 1.7.7'
+  gem.add_dependency    'json', '>= 1.7.7'
 end
