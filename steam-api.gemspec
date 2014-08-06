@@ -17,11 +17,10 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'coveralls'
-
-  gem.add_dependency    'faraday', '0.9.0'
-  gem.add_dependency    'multi_json', '>= 1.7.7'
-  gem.add_dependency    'json', '>= 1.7.7'
+  gem.add_development_dependency 'rake', '~> 10'
+  gem.add_development_dependency 'rspec', '~> 3'
+  gem.add_development_dependency 'coveralls', '~> 0.7'
+  gem.add_dependency 'faraday', '0.9.0'
+  gem.add_dependency 'multi_json', '>= 1.7.7'
+  gem.add_dependency 'json', '>= 1.7.7'
 end
