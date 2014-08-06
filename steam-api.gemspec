@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Simple Steam Gem}
   gem.summary       = %q{Simple Gem to interact witht the Steam Web API}
   gem.homepage      = 'https://github.com/bhaberer/steam-api'
+  gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -21,6 +22,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 3'
   gem.add_development_dependency 'coveralls', '~> 0.7'
   gem.add_dependency 'faraday', '0.9.0'
-  gem.add_dependency 'multi_json', '>= 1.7.7'
-  gem.add_dependency 'json', '>= 1.7.7'
+  gem.add_dependency 'multi_json', '~> 1.7', '>= 1.7.7'
+  gem.add_dependency 'json', '~> 1.7', '>= 1.7.7'
 end
