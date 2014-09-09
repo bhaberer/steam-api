@@ -40,7 +40,7 @@ Once you've done that you can use any of the API functions in the various module
  => "76561197993276293"
 ```
 
-Examples: 
+### Examples
 
 Get the Steam level for a user:
 
