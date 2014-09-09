@@ -34,20 +34,29 @@ Once you get it, go ahead and set it. (You can also pass it as the `STEAM_API_KE
 
 Once you've done that you can use any of the API functions in the various modules, for a list of all available commands please  see the docs here: http://rubydoc.info/gems/steam-api/ Of note, all the commands use the numerical Steam ID, if you need to convert from the vanity name you can use the following method:
 
-```2.1.1 :012 > Steam::User.vanity_to_steamid("asmeroth")
- => "76561197993276293"```
+```
+2.1.1 :012 > Steam::User.vanity_to_steamid("asmeroth")
+
+ => "76561197993276293"
+```
 
 Examples: 
 
 Get the Steam level for a user:
 
-```2.1.1 :014 > Steam::Player.steam_level(76561197993276293)
- => 34```
+```
+2.1.1 :014 > Steam::Player.steam_level(76561197993276293)
+
+ => 34
+```
 
 Get the Borderlands Achievements for a given player:
 
-```2.1.1 :005 >   Steam::UserStats.player_achievements(8980, 76561197969622382)
- => {"steamID"=>"76561197969622382", "gameName"=>"Borderlands", "achievements"=>[{"apiname"=>"Achievement_1", "achieved"=>0}, {"apiname"=>"Achievement_2", "achieved"=>0}, {"apiname"=>"Achievement_3", "achieved"=>0}, {"apiname"=>"Achievement_4", "achieved"=>0}, {"apiname"=>"Achievement_5", "achieved"=>0}, {"apiname"=>"Achievement_6", "achieved"=>0}, {"apiname"=>"Achievement_7", "achieved"=>0}, {"apiname"=>"Achievement_8", "achieved"=>0}, {"apiname"=>"Achievement_9", "achieved"=>0}, {"apiname"=>"Achievement_10", ... ]}```
+```
+2.1.1 :005 >   Steam::UserStats.player_achievements(8980, 76561197969622382)
+
+ => {"steamID"=>"76561197969622382", "gameName"=>"Borderlands", "achievements"=>[{"apiname"=>"Achievement_1", "achieved"=>0}, {"apiname"=>"Achievement_2", "achieved"=>0}, {"apiname"=>"Achievement_3", "achieved"=>0}, {"apiname"=>"Achievement_4", "achieved"=>0}, {"apiname"=>"Achievement_5", "achieved"=>0}, {"apiname"=>"Achievement_6", "achieved"=>0}, {"apiname"=>"Achievement_7", "achieved"=>0}, {"apiname"=>"Achievement_8", "achieved"=>0}, {"apiname"=>"Achievement_9", "achieved"=>0}, {"apiname"=>"Achievement_10", ... ]}
+```
  
 
 ## Contributing
