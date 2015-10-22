@@ -86,4 +86,35 @@ describe Steam::UserStats do
         .to eq('76561197969622382')
     end
   end
+
+  describe '.player_stats' do
+    before(:each) do
+      @stats = Steam::UserStats.player_stats(440, 76561197969622382)
+    end
+
+    it 'should return player stats' do
+      expect(@stats)
+        .to have_key('stats')
+    end
+
+    it 'should return player stats' do
+      expect(@stats)
+        .to have_key('gameName')
+    end
+
+    it 'should return player stats' do
+      expect(@stats['gameName'])
+        .to eq('Team Fortress 2')
+    end
+
+    it 'should return player stats' do
+      expect(@stats)
+        .to have_key('steamID')
+    end
+
+    it 'should return player stats' do
+      expect(@stats['steamID'])
+        .to eq('76561197969622382')
+    end
+  end
 end
