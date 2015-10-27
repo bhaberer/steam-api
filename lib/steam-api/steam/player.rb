@@ -7,7 +7,7 @@ module Steam
     # Get Owned Games
     # @param [Hash] params Parameters to pass to the API
     # @option params [Fixnum] :steamid The 64 bit ID of the player. (Optional)
-    # @option params [Boolean] :include_appinfo (false) Whether or not to include additional
+    # @option params [Integer] :include_appinfo (0) Whether or not to include additional
     #   details of apps - name and images.
     # @option params [Boolean] :include_played_free_games (false) Whether or not to list
     #   free-to-play games in the results.
