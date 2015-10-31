@@ -75,6 +75,17 @@ module Steam
       response
     end
 
+    # Get User Stats for Game
+    # @param [Fixnum] appid AppID to get stats for.
+    # @param [Fixnum] steamid 64 bit Steam ID to return stats for.
+    # @return [Hash] A hash containing the API response.
+    # @see https://developer.valvesoftware.com/wiki/Steam_Web_API#GetUserStatsForGame_.28v0002.29
+    def self.player_stats(appid, steamid)
+      params = { appid: appid, steamid: steamid }
+      response = client.get 'GetUserStatsForGame/v2', params: params
+      response.parse_key('playerstats')
+    end
+
     private
 
     def self.client
