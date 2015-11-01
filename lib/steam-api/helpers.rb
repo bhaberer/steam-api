@@ -1,4 +1,5 @@
 module Steam
+  # Helper Module
   module Helpers
     # Conveniance method to build clients
     # @param [String] api The endpoint of the API
@@ -9,4 +10,3 @@ module Steam
     end
   end
 end
-

@@ -5,13 +5,13 @@ module Steam
   # @since 1.0.0
   module Apps
     # Get Steam Applications
-    # @return [Hash] A list of objects containing the title and app ID of each program
-    #   available in the store.
+    # @return [Hash] A list of objects containing the title and app ID of
+    #   each program available in the store.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAppList
     def self.get_all
       response = client.get('GetApplist/v2')
-        .parse_key('applist')
-        .parse_key('apps')
+                 .parse_key('applist')
+                 .parse_key('apps')
       response
     end
 

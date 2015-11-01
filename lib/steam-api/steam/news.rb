@@ -8,11 +8,16 @@ module Steam
     # @param [Hash] params Parameters to pass to the API
     # @option params [String] :appid The application ID for the Steam Game.
     # @option params [String] :key Steam Api Key
-    # @option params [Fixnum] :count How many news enties you want to get returned. (Optional)
-    # @option params [Fixnum] :maxlength Maximum length of each news entry. (Optional)
-    # @option params [Fixnum] :enddate Unix timestamp, returns posts before this date. (Optional)
-    # @option params [String] :feeds Commma-seperated list of feed names to return news for. (Optional)
-    # @return [Hash] A hash object of the latest news items for a game specified by its appID.
+    # @option params [Fixnum] :count How many news enties you want to get
+    #   returned. (Optional)
+    # @option params [Fixnum] :maxlength Maximum length of each news
+    #   entry. (Optional)
+    # @option params [Fixnum] :enddate Unix timestamp, returns posts before
+    #   this date. (Optional)
+    # @option params [String] :feeds Commma-seperated list of feed names to
+    #   return news for. (Optional)
+    # @return [Hash] A hash object of the latest news items for a game
+    #   specified by its appID.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
     def self.get(appid, params: {})
       params[:appid] = appid

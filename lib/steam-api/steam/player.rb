@@ -7,14 +7,16 @@ module Steam
     # Get Owned Games
     # @param [Hash] params Parameters to pass to the API
     # @option params [Fixnum] :steamid The 64 bit ID of the player. (Optional)
-    # @option params [Integer] :include_appinfo (0) Whether or not to include additional
-    #   details of apps - name and images.
-    # @option params [Boolean] :include_played_free_games (false) Whether or not to list
-    #   free-to-play games in the results.
-    # @option params [Array] :appids_filter You can optionally filter the list to a set of appids.
-    #   Note that these cannot be passed as a URL parameter, instead you must use the JSON format
-    #   described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of
-    #   integers (in JSON: "appids_filter: [ 440, 500, 550 ]" )
+    # @option params [Integer] :include_appinfo (0) Whether or not to include
+    #   additional details of apps - name and images.
+    # @option params [Boolean] :include_played_free_games (false) Whether or
+    #   not to list free-to-play games in the results.
+    # @option params [Array] :appids_filter You can optionally filter the list
+    #   to a set of appids.
+    #   Note that these cannot be passed as a URL parameter, instead you must
+    #   use the JSON format described in
+    #   Steam_Web_API#Calling_Service_interfaces. The expected input is an
+    #   array of integers (in JSON: "appids_filter: [ 440, 500, 550 ]" )
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames
     def self.owned_games(steamid, params: {})
       params[:steamid] = steamid
@@ -25,8 +27,9 @@ module Steam
     # Get Recently Played Games
     # @param [Hash] params Parameters to pass to the API
     # @option params [String] :steamid The SteamID of the account.
-    # @option params [String] :count Optionally limit to a certain number of games (the number of
-    #   games a person has played in the last 2 weeks is typically very small)
+    # @option params [String] :count Optionally limit to a certain number of
+    #   games (the number of games a person has played in the last 2 weeks is
+    #   typically very small)
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetRecentlyPlayedGames
     def self.recently_played_games(steamid, params: {})
       params[:steamid] = steamid
@@ -42,7 +45,7 @@ module Steam
       response = client.get 'GetSteamLevel/v1',
                             params: { steamid: steamid }
       response.parse_key('response')
-              .parse_key('player_level')
+        .parse_key('player_level')
     end
 
     # Get a player's Steam badges
@@ -61,7 +64,7 @@ module Steam
       response = client.get 'GetCommunityBadgeProgress/v1',
                             params: { steamid: steamid }
       response.parse_key('response')
-              .parse_key('quests')
+        .parse_key('quests')
     end
 
     private

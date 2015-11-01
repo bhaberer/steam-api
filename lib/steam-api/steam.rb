@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # Base class def
 module Steam
   @apikey = ENV['STEAM_API_KEY']
