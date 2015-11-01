@@ -2,119 +2,95 @@ require 'spec_helper'
 
 describe Steam::UserStats do
   describe '.achievement_percentages' do
-    it 'should return achievement information' do
-      expect(Steam::UserStats.achievement_percentages(440))
-        .to_not be_nil
+    let(:result) { Steam::UserStats.achievement_percentages(440) }
+
+    it 'returns achievement information' do
+      expect(result).to_not be_nil
     end
 
-    it 'should return all achievements for a game' do
-      achs = Steam::UserStats.achievement_percentages(440)
-      expect(achs.first).to have_key('name')
-      expect(achs.first).to have_key('percent')
+    it 'returns all achievements for a game' do
+      expect(result.first).to have_key('name')
+      expect(result.first).to have_key('percent')
     end
   end
 
   describe '.game_schema' do
-    it 'should return global game stats' do
-      expect(Steam::UserStats.game_schema(440))
-        .to_not be_nil
+    let(:result) { Steam::UserStats.game_schema(440) }
+
+    it 'returns global game stats' do
+      expect(result).to_not be_nil
     end
 
-    it 'should return global game stats with proper schema' do
-      expect(Steam::UserStats.game_schema(440))
-        .to have_key('gameName')
+    it 'returns global game stats with a gameName' do
+      expect(result).to have_key('gameName')
     end
 
-    it 'should return global game stats with proper schema' do
-      expect(Steam::UserStats.game_schema(440))
-        .to have_key('gameName')
+    it 'returns global game stats with a gameVersion' do
+      expect(result).to have_key('gameVersion')
     end
 
-    it 'should return global game stats with proper schema' do
-      expect(Steam::UserStats.game_schema(440))
-        .to have_key('gameVersion')
-    end
-
-    it 'should return global game stats with proper schema' do
-      expect(Steam::UserStats.game_schema(440))
-        .to have_key('availableGameStats')
+    it 'returns global game stats with availableGameStats' do
+      expect(result).to have_key('availableGameStats')
     end
   end
 
   describe '.global_for_game' do
-    it 'should return global game stats' do
-      expect(Steam::UserStats.global_for_game(201830,
-                                       params: { 'name[0]' => 'totalDeaths',
-                                                 count: 10 }))
+    it 'returns global game stats' do
+      Steam::UserStats.global_for_game(201830, params: { 'name[0]' => 'totalDeaths', count: 10 })
     end
   end
 
   describe '.player_count' do
-    it 'should return a player count' do
-      expect(Steam::UserStats.player_count(440))
-        .to be_a(Fixnum)
+    it 'returns a player count' do
+      expect(Steam::UserStats.player_count(440)).to be_a(Fixnum)
     end
   end
 
   describe '.get_player_achievements' do
-    before(:each) do
-      @achs = Steam::UserStats.player_achievements(440, 76561197969622382)
+    let(:achs) { Steam::UserStats.player_achievements(440, 76561197969622382) }
+
+    it 'returns a list of player achievements' do
+      expect(achs).to have_key('achievements')
     end
 
-    it 'should return player achievements' do
-      expect(@achs)
-        .to have_key('achievements')
+    it 'returns a gameName' do
+      expect(achs).to have_key('gameName')
     end
 
-    it 'should return player achievements' do
-      expect(@achs)
-        .to have_key('gameName')
+    it 'returns correct gameName' do
+      expect(achs['gameName']).to eq('Team Fortress 2')
     end
 
-    it 'should return player achievements' do
-      expect(@achs['gameName'])
-        .to eq('Team Fortress 2')
+    it 'returns a steamID' do
+      expect(achs).to have_key('steamID')
     end
 
-    it 'should return player achievements' do
-      expect(Steam::UserStats.player_achievements(440, 76561197969622382))
-        .to have_key('steamID')
-    end
-
-    it 'should return player achievements' do
-      expect(Steam::UserStats.player_achievements(440, 76561197969622382)['steamID'])
-        .to eq('76561197969622382')
+    it 'returns the correct steamID' do
+      expect(achs['steamID']).to eq('76561197969622382')
     end
   end
 
   describe '.player_stats' do
-    before(:each) do
-      @stats = Steam::UserStats.player_stats(440, 76561197969622382)
+    let(:stats) { Steam::UserStats.player_stats(440, 76561197969622382) }
+
+    it 'returns player stats' do
+      expect(stats).to have_key('stats')
     end
 
-    it 'should return player stats' do
-      expect(@stats)
-        .to have_key('stats')
+    it 'returns a gameName' do
+      expect(stats).to have_key('gameName')
     end
 
-    it 'should return player stats' do
-      expect(@stats)
-        .to have_key('gameName')
+    it 'returns the correct gameName' do
+      expect(stats['gameName']).to eq('Team Fortress 2')
     end
 
-    it 'should return player stats' do
-      expect(@stats['gameName'])
-        .to eq('Team Fortress 2')
+    it 'returns a steamID' do
+      expect(stats).to have_key('steamID')
     end
 
-    it 'should return player stats' do
-      expect(@stats)
-        .to have_key('steamID')
-    end
-
-    it 'should return player stats' do
-      expect(@stats['steamID'])
-        .to eq('76561197969622382')
+    it 'returns a correct steamID' do
+      expect(stats['steamID']).to eq('76561197969622382')
     end
   end
 end
