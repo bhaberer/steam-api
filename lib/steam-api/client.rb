@@ -15,6 +15,9 @@ module Steam
       response = @conn.get resource, params
       JSON.parse(response.body)
     rescue JSON::ParserError
+      # If the steam web api returns an error it's virtually never in json, so
+      #   lets pretend that we're getting some sort of consistant response
+      #   for errors.
       { error: '500 Internal Server Error' }
     end
   end

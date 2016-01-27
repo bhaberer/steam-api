@@ -21,7 +21,7 @@ module Steam
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetServersAtAddress
     def self.get_servers(addr: nil)
       response = client.get 'GetServersAtAddress/v1',
-                            params: { addr: URI.escape(addr) }
+                            params: { addr: ERB::Util.url_encode(addr) }
       response = response.parse_key('response')
       response.check_success
       response.parse_key('servers')

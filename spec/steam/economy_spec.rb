@@ -12,7 +12,7 @@ describe Steam::Economy do
     end
 
     it 'requires class params' do
-      expect { Steam::Economy.asset_info(440) }.to raise_error
+      expect { Steam::Economy.asset_info(440) }.to raise_error(Steam::JSONError)
     end
 
     it 'allows users to query asset info' do

@@ -16,7 +16,7 @@ describe Steam::User do
     end
 
     it 'raises an error on a bad friend id' do
-      expect { Steam::User.friends('765611') }.to raise_error
+      expect { Steam::User.friends('765611') }.to raise_error(Steam::JSONError)
     end
 
     it 'returns the same content for :friends and :all' do

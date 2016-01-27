@@ -68,7 +68,7 @@ describe Steam::Apps do
     end
 
     it 'should capture json errors' do
-      expect { Steam::Apps.up_to_date(appid: nil, version: 'foo') }.to raise_error
+      expect { Steam::Apps.up_to_date(appid: nil, version: 'foo') }.to raise_error(Steam::JSONError)
     end
   end
 end
