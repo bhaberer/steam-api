@@ -3,8 +3,10 @@
 [![Gem Version](https://badge.fury.io/rb/steam-api.png)](http://badge.fury.io/rb/steam-api)
 [![Dependency Status](https://gemnasium.com/bhaberer/steam-api.png)](https://gemnasium.com/bhaberer/steam-api)
 [![Build Status](https://travis-ci.org/bhaberer/steam-api.png?branch=master)](https://travis-ci.org/bhaberer/steam-api)
-[![Coverage Status](https://coveralls.io/repos/bhaberer/steam-api/badge.png?branch=master)](https://coveralls.io/r/bhaberer/steam-api?branch=master)
-[![Code Climate](https://codeclimate.com/github/bhaberer/steam-api.png)](https://codeclimate.com/github/bhaberer/steam-api)
+[![Code Climate](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/badges/226077533513337dc3b8/gpa.svg)](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/feed)
+[![Test Coverage](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/badges/226077533513337dc3b8/coverage.svg)](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/coverage)
+[![Issue Count](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/badges/226077533513337dc3b8/issue_count.svg)](https://codeclimate.com/repos/56b14b8ae8ef7c772f00586b/feed)
+
 
 `steam-api` is a simple gem to expose the Steam WebApi directly.
 
