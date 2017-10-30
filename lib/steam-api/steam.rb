@@ -16,4 +16,19 @@ module Steam
   def self.apikey=(key)
     @apikey = key
   end
+
+  def self.appid
+    if @appid.nil?
+      if ENV.key?('STEAM_APP_ID')
+        @appid = ENV['STEAM_APP_ID'].to_s
+      else
+        fail ArgumentError, 'Please set your Steam APP ID.'
+      end
+    end
+    @appid
+  end
+
+  def self.appid=(appid)
+    @appid = appid
+  end
 end
