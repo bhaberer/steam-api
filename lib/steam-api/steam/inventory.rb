@@ -12,7 +12,21 @@ module Steam
       params[:steamid] = steamid
       params[:appid] = Steam.appid
       response = client.get 'GetInventory/v1', params: params
-      p JSON.parse(response['response']['item_json'])
+      JSON.parse(response['response']['item_json'])
+    end
+
+    # GetItemDefs is used to retrieve the itemdefs for a given application.
+    # @param [Hash] params Parameters to pass to the API
+    # @see https://partner.steamgames.com/doc/webapi/IInventoryService#GetItemDefs
+    def self.item_defs(params = {})
+      params = {
+        appid: Steam.appid,
+        modifiedsince: '',
+        itemdefids: '',
+        workshopids: ''
+      }.merge(params)
+      response = client.get 'GetItemDefs/v1', params: params
+      JSON.parse(response['response']['itemdef_json'])
     end
 
     private

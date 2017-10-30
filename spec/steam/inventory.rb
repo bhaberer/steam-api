@@ -10,7 +10,19 @@ describe Steam::Inventory do
       expect(result).to_not be_nil
     end
 
-    it 'returns list of player\'s inventory' do
+    it 'returns a list of player\'s inventory' do
+      expect(result.class).to eq(Array)
+    end
+  end
+
+  describe '.item_defs' do
+    let(:result) { Steam::Inventory.item_defs }
+    
+    it 'returns data' do
+      expect(result).to_not be_nil
+    end
+
+    it 'returns a list of item definitions' do
       expect(result.class).to eq(Array)
     end
   end
