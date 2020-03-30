@@ -9,9 +9,10 @@ env:
   global:
     secure: P5IpEGYYbF0HcP9Mj9/zZAUXpUjkA2YkGLClvbVGsOD5zI9Jj1RZAlCC/fBKtfPUlfjlADp1hIN++n7qnqqmXPw4X/BC2V8Ios91NoFQeKfjQENSmjYykFTCp1CkBmCjq+lb/yE/JPQnVOoI/eEm5uaNSRc/XLjHwuSdKEFPv8M=
 rvm:
-  - 2.3
   - 2.4
   - 2.5
+  - 2.6
+  - 2.7
   - jruby-19mode
   - ruby-head
   - jruby-head
