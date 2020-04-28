@@ -8,5 +8,8 @@ module Steam
     def build_client(api, base_url: 'https://api.steampowered.com')
       Steam::Client.new([base_url, api].join('/'))
     end
+
+
+    STORE_API_BASE_URL = 'https://store.steampowered.com/api'
   end
 end
