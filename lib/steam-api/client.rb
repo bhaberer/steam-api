@@ -14,11 +14,18 @@ module Steam
       params[:key] = key
       response = @conn.get resource, params
       JSON.parse(response.body)
+      # response
     rescue JSON::ParserError
+      puts response.body
       # If the steam web api returns an error it's virtually never in json, so
       #   lets pretend that we're getting some sort of consistant response
       #   for errors.
-      { error: '500 Internal Server Error' }
+      case response.status
+      when '503'
+        fail Steam::UnavailableError
+      else
+        { error: '500 Internal Server Error' }
+      end
     end
   end
 end

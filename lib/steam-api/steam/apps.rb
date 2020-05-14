@@ -19,8 +19,8 @@ module Steam
     # @param [String] addr IP or IP:queryport to list
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetServersAtAddress
-    def self.get_servers(addr: nil)
-      response = client.get 'GetServersAtAddress/v1',
+    def self.get_servers(addr: nil, version: nil, api_version: 'v1')
+      response = client.get "GetServersAtAddress/#{api_version}",
                             params: { addr: ERB::Util.url_encode(addr) }
       response = response.parse_key('response')
       response.check_success
@@ -32,8 +32,8 @@ module Steam
     # @param [Fixnum] version The installed version of the game
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
-    def self.up_to_date(appid: nil, version: nil)
-      response = client.get 'UpToDateCheck/v1',
+    def self.up_to_date(appid: nil, version: 'v1', api_version: 'v1')
+      response = client.get "UpToDateCheck/#{api_version}",
                             params: { appid: appid, version: version }
       response = response.parse_key('response')
       response.check_success
