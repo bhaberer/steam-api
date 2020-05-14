@@ -42,7 +42,7 @@ describe Steam::UserStats do
 
   describe '.player_count' do
     it 'returns a player count' do
-      expect(Steam::UserStats.player_count(440)).to be_a(Fixnum)
+      expect(Steam::UserStats.player_count(440)).to be_a(Integer)
     end
   end
 
