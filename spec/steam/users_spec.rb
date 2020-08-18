@@ -55,7 +55,7 @@ describe Steam::User do
   end
 
   describe '.vanity_to_steamid' do
-    let(:result) { Steam::User.vanity_to_steamid('asmeroth') }
+    let(:result) { Steam::User.vanity_to_steamid('theasmer') }
 
     it 'return values when they look up vanity urls' do
       expect(result).to_not be_nil

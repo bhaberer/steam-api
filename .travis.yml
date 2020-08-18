@@ -8,26 +8,20 @@ before_install:
 env:
   global:
     secure: P5IpEGYYbF0HcP9Mj9/zZAUXpUjkA2YkGLClvbVGsOD5zI9Jj1RZAlCC/fBKtfPUlfjlADp1hIN++n7qnqqmXPw4X/BC2V8Ios91NoFQeKfjQENSmjYykFTCp1CkBmCjq+lb/yE/JPQnVOoI/eEm5uaNSRc/XLjHwuSdKEFPv8M=
+after_success:
+  bundle exec codeclimate-test-reporter
 rvm:
-  - 1.8.7
-  - 1.9.2
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.2.0
-  - 2.3.0
-  - jruby-18mode
+  - 2.4
+  - 2.5
+  - 2.6
+  - 2.7
   - jruby-19mode
   - ruby-head
   - jruby-head
   - ree
 matrix:
   allow_failures:
-    - rvm: 1.8.7
-    - rvm: 1.9.2
-    - rvm: 1.9.3
     - rvm: ree
-    - rvm: jruby-18mode
     - rvm: jruby-19mode
     - rvm: jruby-head
     - rvm: ruby-head

@@ -51,7 +51,7 @@ describe Steam::Player do
     end
 
     it 'returns the level number' do
-      expect(result).to be_a(Fixnum)
+      expect(result).to be_a(Integer)
     end
   end
 
@@ -71,7 +71,7 @@ describe Steam::Player do
     end
 
     it 'returns the player level as a number' do
-      expect(result['player_level']).to be_a(Fixnum)
+      expect(result['player_level']).to be_a(Integer)
     end
 
     it 'returns the players current xp' do

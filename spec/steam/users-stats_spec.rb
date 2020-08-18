@@ -42,12 +42,12 @@ describe Steam::UserStats do
 
   describe '.player_count' do
     it 'returns a player count' do
-      expect(Steam::UserStats.player_count(440)).to be_a(Fixnum)
+      expect(Steam::UserStats.player_count(440)).to be_a(Integer)
     end
   end
 
   describe '.get_player_achievements' do
-    let(:achs) { Steam::UserStats.player_achievements(440, 76561197969622382) }
+    let(:achs) { Steam::UserStats.player_achievements(440, 76561197993276293) }
 
     it 'returns a list of player achievements' do
       expect(achs).to have_key('achievements')
@@ -66,12 +66,12 @@ describe Steam::UserStats do
     end
 
     it 'returns the correct steamID' do
-      expect(achs['steamID']).to eq('76561197969622382')
+      expect(achs['steamID']).to eq('76561197993276293')
     end
   end
 
   describe '.player_stats' do
-    let(:stats) { Steam::UserStats.player_stats(440, 76561197969622382) }
+    let(:stats) { Steam::UserStats.player_stats(440, 76561197993276293) }
 
     it 'returns player stats' do
       expect(stats).to have_key('stats')
@@ -90,7 +90,7 @@ describe Steam::UserStats do
     end
 
     it 'returns a correct steamID' do
-      expect(stats['steamID']).to eq('76561197969622382')
+      expect(stats['steamID']).to eq('76561197993276293')
     end
   end
 end
