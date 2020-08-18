@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # A Ruby DSL for communicating with the Apps portion of the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
@@ -10,8 +9,8 @@ module Steam
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAppList
     def self.get_all
       response = client.get('GetApplist/v2')
-                 .parse_key('applist')
-                 .parse_key('apps')
+                       .parse_key('applist')
+                       .parse_key('apps')
       response
     end
 
@@ -19,7 +18,7 @@ module Steam
     # @param [String] addr IP or IP:queryport to list
     # @return [Hash] A hash containing the API response
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetServersAtAddress
-    def self.get_servers(addr: nil, version: nil, api_version: 'v1')
+    def self.get_servers(addr: nil, api_version: 'v1')
       response = client.get "GetServersAtAddress/#{api_version}",
                             params: { addr: ERB::Util.url_encode(addr) }
       response = response.parse_key('response')
@@ -40,8 +39,6 @@ module Steam
       response.delete('success')
       response
     end
-
-    private
 
     def self.client
       build_client 'ISteamApps'

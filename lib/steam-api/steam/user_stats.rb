@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # A Ruby DSL for communicating with the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
@@ -13,7 +12,7 @@ module Steam
       response = client.get 'GetGlobalAchievementPercentagesForApp/v2',
                             params: { gameid: appid }
       response = response.parse_key('achievementpercentages')
-                 .parse_key('achievements')
+                         .parse_key('achievements')
       response
     end
 
@@ -57,7 +56,7 @@ module Steam
       response = client.get 'GetNumberOfCurrentPlayers/v1',
                             params: { appid: appid }
       response.parse_key('response')
-        .parse_key('player_count')
+              .parse_key('player_count')
     end
 
     # Get Player Achievements
@@ -87,8 +86,6 @@ module Steam
       response = client.get 'GetUserStatsForGame/v2', params: params
       response.parse_key('playerstats')
     end
-
-    private
 
     def self.client
       build_client('ISteamUserStats')

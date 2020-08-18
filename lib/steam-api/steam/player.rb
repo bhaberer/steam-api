@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # A Ruby DSL for communicating with the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
@@ -45,7 +44,7 @@ module Steam
       response = client.get 'GetSteamLevel/v1',
                             params: { steamid: steamid }
       response.parse_key('response')
-        .parse_key('player_level')
+              .parse_key('player_level')
     end
 
     # Get a player's Steam badges
@@ -64,10 +63,8 @@ module Steam
       response = client.get 'GetCommunityBadgeProgress/v1',
                             params: { steamid: steamid }
       response.parse_key('response')
-        .parse_key('quests')
+              .parse_key('quests')
     end
-
-    private
 
     def self.client
       build_client 'IPlayerService'

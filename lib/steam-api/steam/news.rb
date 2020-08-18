@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # A Ruby DSL for communicating with the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
@@ -22,11 +21,9 @@ module Steam
     def self.get(appid, params: {})
       params[:appid] = appid
       client.get('GetNewsForApp/v2', params: params)
-        .parse_key('appnews')
-        .parse_key('newsitems')
+            .parse_key('appnews')
+            .parse_key('newsitems')
     end
-
-    private
 
     def self.client
       build_client 'ISteamNews'

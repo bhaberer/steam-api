@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # Client object used to communicate with the steam webapi
   class Client
@@ -20,12 +19,9 @@ module Steam
       # If the steam web api returns an error it's virtually never in json, so
       #   lets pretend that we're getting some sort of consistant response
       #   for errors.
-      case response.status
-      when '503'
-        fail Steam::UnavailableError
-      else
-        { error: '500 Internal Server Error' }
-      end
+      raise Steam::UnavailableError if response.status == '503'
+
+      { error: '500 Internal Server Error' }
     end
   end
 end

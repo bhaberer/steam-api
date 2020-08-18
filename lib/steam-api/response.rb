@@ -15,7 +15,8 @@ class Hash
   #   nesting their json a few levels on every request.
   # @param [String] key The key to extract from the hash
   def parse_key(key)
-    fail Steam::JSONError unless self.key?(key)
+    raise Steam::JSONError unless key?(key)
+
     self[key]
   end
 
@@ -24,8 +25,9 @@ class Hash
   # @param [String] success_condition what the success condition should be
   # @return [Boolean] Returns true or raises an exception.
   def check_success(success_condition: true)
-    success = self.parse_key('success')
-    fail Steam::SteamError unless success == success_condition
+    success = parse_key('success')
+    raise Steam::SteamError unless success == success_condition
+
     true
   end
 end

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Steam
   # A Ruby DSL for communicating with the Steam Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
@@ -28,8 +27,6 @@ module Steam
       response = client.get 'GetUGCFileDetails/v1', params: params
       response
     end
-
-    private
 
     def self.client
       build_client 'ISteamRemoteStorage'

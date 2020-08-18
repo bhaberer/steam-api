@@ -17,7 +17,7 @@ module Steam
                             params: { steamid: steamid,
                                       relationship: relationship }
       response = response.parse_key('friendslist')
-                 .parse_key('friends')
+                         .parse_key('friends')
       response
     end
 
@@ -54,7 +54,7 @@ module Steam
       response = client.get 'GetPlayerSummaries/v2/',
                             params: { steamids: steamids.join(',') }
       response.parse_key('response')
-        .parse_key('players')
+              .parse_key('players')
     end
 
     # Get User Groups
@@ -80,8 +80,6 @@ module Steam
       response.check_success(success_condition: 1)
       response.parse_key('steamid')
     end
-
-    private
 
     def self.client
       build_client 'ISteamUser'

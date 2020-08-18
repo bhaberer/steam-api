@@ -4,11 +4,11 @@ module Steam
 
   def self.apikey
     if @apikey.nil?
-      if ENV.key?('STEAM_API_KEY')
-        @apikey = ENV['STEAM_API_KEY']
-      else
-        fail ArgumentError, 'Please set your Steam API key.'
+      unless ENV.key?('STEAM_API_KEY')
+        raise ArgumentError, 'Please set your Steam API key.'
       end
+
+      @apikey = ENV['STEAM_API_KEY']
     end
     @apikey
   end
