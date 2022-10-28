@@ -1,0 +1,21 @@
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.4
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+Naming/FileName:
+  Exclude:
+    - lib/steam-api.rb
+Naming/AccessorMethodName:
+  Exclude:
+    - lib/steam-api/steam/**/*

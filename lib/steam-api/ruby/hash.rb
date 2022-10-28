@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Takes a hash and converts it into a URL encoded parameter string.
 #   NOTE: this does not do any uri escaping at this point, since all args
 #         should be numeric.

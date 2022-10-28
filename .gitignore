@@ -16,3 +16,4 @@ spec/secret.rb
 test/tmp
 test/version_tmp
 tmp
+spec/examples.txt
