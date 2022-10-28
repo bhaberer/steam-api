@@ -3,7 +3,7 @@
 require 'simplecov'
 SimpleCov.start
 
-require 'secret' if File.exist? File.join(__dir__, 'secret.rb')
+require_relative 'secret' if File.exist? File.join(__dir__, 'secret.rb')
 
 require_relative '../lib/steam-api'
 
