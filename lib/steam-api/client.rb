@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Steam
   # Client object used to communicate with the steam webapi
   class Client

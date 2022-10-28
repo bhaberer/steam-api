@@ -1,4 +1,6 @@
-# Base class def
+# frozen_string_literal: true
+
+# Base class definition
 module Steam
   @apikey = ENV['STEAM_API_KEY']
 

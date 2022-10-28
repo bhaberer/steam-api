@@ -1,5 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
+require 'spec_helper'
 
 describe Steam::Store do
   let(:appid) { 976730 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Steam
   # Since the steam responses are so randomly inconsistant we're making a new
   #   class to manage the responses.

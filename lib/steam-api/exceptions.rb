@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Steam
   # Error returning the requested object from the Steam API
   class SteamError < StandardError

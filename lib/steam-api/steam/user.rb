@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
+
 module Steam
   # A Ruby DSL for communicating with the Steam::User Web API.
   # @see https://developer.valvesoftware.com/wiki/Steam_Web_API
