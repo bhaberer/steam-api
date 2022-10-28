@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 describe Steam::News do
   describe '.get' do
     let(:result) { Steam::News.get(440) }

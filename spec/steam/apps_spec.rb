@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 describe Steam::Apps do
   describe '.get_all' do
     let(:result) { Steam::Apps.get_all }

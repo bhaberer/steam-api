@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 describe Steam::UserStats do
   describe '.achievement_percentages' do
     let(:result) { Steam::UserStats.achievement_percentages(440) }

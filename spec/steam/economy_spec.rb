@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 describe Steam::Economy do
   describe '.asset_info' do
     let(:result) { Steam::Economy.asset_info(440,

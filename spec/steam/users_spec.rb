@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 describe Steam::User do
   let(:playerid) { 76561197993276293 }
   let(:playerid2) { 76561197969622382 }
