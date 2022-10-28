@@ -12,9 +12,12 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/bhaberer/steam-api'
   gem.license       = 'MIT'
 
+  gem.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
+
   gem.files         = `git ls-files`.split($RS)
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
   gem.required_ruby_version = '>= 2.4', '< 4'
@@ -22,6 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 13.0'
   gem.add_development_dependency 'rspec', '~> 3.9'
+  gem.add_development_dependency 'rubocop', '~> 1.37.1'
 
   gem.add_dependency 'faraday', '~> 1.0'
 end
