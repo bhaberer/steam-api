@@ -4,10 +4,10 @@ describe Steam::Player do
   let(:playerid) { '76561198039590772' }
 
   describe '.owned_games' do
-    let(:result) { Steam::Player.owned_games(playerid) }
+    let(:result) { described_class.owned_games(playerid) }
 
     it 'allows users to retrieve a list of games' do
-      expect(result).to_not be_nil
+      expect(result).not_to be_nil
     end
 
     it 'returns a game_count' do
@@ -20,10 +20,10 @@ describe Steam::Player do
   end
 
   describe '.recently_played_games' do
-    let(:result) { Steam::Player.recently_played_games(playerid) }
+    let(:result) { described_class.recently_played_games(playerid) }
 
     it 'allows users to list a players recent games' do
-      expect(result).to_not be_nil
+      expect(result).not_to be_nil
     end
 
     it 'returns total_count' do
@@ -44,10 +44,10 @@ describe Steam::Player do
   end
 
   describe '.steam_level' do
-    let(:result) { Steam::Player.steam_level(playerid) }
+    let(:result) { described_class.steam_level(playerid) }
 
     it 'allows users to retrieve a users steam level' do
-      expect(result).to_not be_nil
+      expect(result).not_to be_nil
     end
 
     it 'returns the level number' do
@@ -56,10 +56,10 @@ describe Steam::Player do
   end
 
   describe '.badges' do
-    let(:result) { Steam::Player.badges(playerid) }
+    let(:result) { described_class.badges(playerid) }
 
     it 'allows a user to retrieve badges for a player' do
-      expect(result).to_not be_nil
+      expect(result).not_to be_nil
     end
 
     it 'returns a list of badges' do
@@ -88,10 +88,10 @@ describe Steam::Player do
   end
 
   describe '.community_badge_progress' do
-    let(:result) { Steam::Player.community_badge_progress(playerid) }
+    let(:result) { described_class.community_badge_progress(playerid) }
 
     it 'allows a user to retrieve community badge info for a player' do
-      expect(result).to_not be_nil
+      expect(result).not_to be_nil
     end
 
     it 'returns a list of quests' do
@@ -99,8 +99,7 @@ describe Steam::Player do
     end
 
     it 'returns a list of quests with ids and completion status' do
-      expect(result.first).to have_key('questid')
-      expect(result.first).to have_key('completed')
+      expect(result.first).to match 'questid' => a_kind_of(Integer), 'completed' => boolean
     end
   end
 end
