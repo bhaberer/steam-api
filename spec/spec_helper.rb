@@ -5,7 +5,7 @@ SimpleCov.start
 
 require 'secret' if File.exist? File.join(__dir__, 'secret.rb')
 
-require 'steam-api'
+require_relative '../lib/steam-api'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/examples.txt'
