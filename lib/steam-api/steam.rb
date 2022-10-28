@@ -2,18 +2,15 @@
 
 # Base class definition
 module Steam
-  @apikey = ENV['STEAM_API_KEY']
-
   class << self
     attr_writer :apikey
 
     def apikey
-      if @apikey.nil?
-        raise ArgumentError, 'Please set your Steam API key.' unless ENV.key?('STEAM_API_KEY')
+      return @apikey if @apikey
 
-        @apikey = ENV['STEAM_API_KEY']
-      end
-      @apikey
+      raise ArgumentError, 'Please set your Steam API key.' unless ENV.key?('STEAM_API_KEY')
+
+      @apikey = ENV.fetch('STEAM_API_KEY')
     end
   end
 end
