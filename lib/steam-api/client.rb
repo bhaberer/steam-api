@@ -3,7 +3,11 @@
 module Steam
   # Client object used to communicate with the steam webapi
   class Client
-    def initialize(url)
+    # @param [String] api The endpoint of the API
+    # @param [String] base_url the root uri for steam's API
+    # @return [Steam::Client] The Client
+    def initialize(api, base_url: 'https://api.steampowered.com')
+      url = File.join(base_url, api)
       @conn = Faraday.new(url: url)
     end
 

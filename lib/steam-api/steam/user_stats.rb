@@ -85,7 +85,7 @@ module Steam
       end
 
       def client
-        build_client('ISteamUserStats')
+        Steam::Client.new 'ISteamUserStats'
       end
     end
   end

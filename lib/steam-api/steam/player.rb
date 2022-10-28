@@ -64,7 +64,7 @@ module Steam
       end
 
       def client
-        build_client 'IPlayerService'
+        Steam::Client.new 'IPlayerService'
       end
     end
   end

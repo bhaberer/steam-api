@@ -30,7 +30,7 @@ module Steam
       end
 
       def client
-        build_client 'ISteamRemoteStorage'
+        Steam::Client.new 'ISteamRemoteStorage'
       end
     end
   end

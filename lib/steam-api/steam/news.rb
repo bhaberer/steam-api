@@ -27,7 +27,7 @@ module Steam
       end
 
       def client
-        build_client 'ISteamNews'
+        Steam::Client.new 'ISteamNews'
       end
     end
   end

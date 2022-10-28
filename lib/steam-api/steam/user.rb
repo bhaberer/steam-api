@@ -77,7 +77,7 @@ module Steam
       end
 
       def client
-        build_client 'ISteamUser'
+        Steam::Client.new 'ISteamUser'
       end
     end
   end

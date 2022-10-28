@@ -16,7 +16,7 @@ module Steam
       private
 
       def client
-        build_client '', base_url: Steam::Helpers::STORE_API_BASE_URL
+        Steam::Client.new '', base_url: 'https://store.steampowered.com/api'
       end
     end
   end

@@ -49,7 +49,7 @@ module Steam
       end
 
       def client
-        build_client 'ISteamEconomy'
+        Steam::Client.new 'ISteamEconomy'
       end
 
       def parse_response(response)

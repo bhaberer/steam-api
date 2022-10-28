@@ -43,7 +43,7 @@ module Steam
       end
 
       def client
-        build_client 'ISteamApps'
+        Steam::Client.new 'ISteamApps'
       end
     end
   end
