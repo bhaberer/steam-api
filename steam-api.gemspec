@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.4', '< 4'
 
+  gem.add_dependency 'faraday', '~> 2.0'
+
   gem.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 13.0'
   gem.add_development_dependency 'rspec', '~> 3.9'
@@ -29,6 +31,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop', '~> 1.37.1'
   gem.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.14.2'
-
-  gem.add_dependency 'faraday', '~> 1.0'
 end
