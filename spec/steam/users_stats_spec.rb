@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Steam::UserStats do
@@ -36,7 +38,7 @@ describe Steam::UserStats do
 
   describe '.global_for_game' do
     it 'returns global game stats' do
-      Steam::UserStats.global_for_game(201830, params: { 'name[0]' => 'totalDeaths', count: 10 })
+      Steam::UserStats.global_for_game('201830', params: { 'name[0]' => 'totalDeaths', count: 10 })
     end
   end
 
@@ -47,7 +49,9 @@ describe Steam::UserStats do
   end
 
   describe '.get_player_achievements' do
-    let(:achs) { Steam::UserStats.player_achievements(440, 76561197993276293) }
+    let(:achs) do
+      Steam::UserStats.player_achievements(440, '76561197993276293')
+    end
 
     it 'returns a list of player achievements' do
       expect(achs).to have_key('achievements')
@@ -71,7 +75,7 @@ describe Steam::UserStats do
   end
 
   describe '.player_stats' do
-    let(:stats) { Steam::UserStats.player_stats(440, 76561197993276293) }
+    let(:stats) { Steam::UserStats.player_stats(440, '76561197993276293') }
 
     it 'returns player stats' do
       expect(stats).to have_key('stats')
