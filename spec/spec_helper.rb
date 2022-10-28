@@ -3,9 +3,7 @@
 require 'simplecov'
 SimpleCov.start
 
-if File::exist? File.join(File.dirname(__FILE__), "secret.rb")
-  require 'secret'
-end
+require 'secret' if File.exist? File.join(__dir__, 'secret.rb')
 
 require 'steam-api'
 

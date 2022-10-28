@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Steam::Player do
-  let(:playerid) { 76561197993276293 }
+  let(:playerid) { '76561198039590772' }
 
   describe '.owned_games' do
     let(:result) { Steam::Player.owned_games(playerid) }

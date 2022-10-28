@@ -2,10 +2,11 @@
 
 describe Steam::Economy do
   describe '.asset_info' do
-    let(:result) { Steam::Economy.asset_info(440,
-                                             params: { class_count: 2,
-                                                       classid0: 195151,
-                                                       classid1: 16891096 })}
+    let(:result) do
+      Steam::Economy.asset_info(
+        440, params: { class_count: 2, classid0: '195151', classid1: '16891096' }
+      )
+    end
 
     it 'returns data' do
       expect(result).to_not be_nil

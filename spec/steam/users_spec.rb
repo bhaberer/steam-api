@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 describe Steam::User do
-  let(:playerid) { 76561197993276293 }
-  let(:playerid2) { 76561197969622382 }
+  let(:playerid) { '76561197993276293' }
+  let(:playerid2) { '76561197969622382' }
 
   describe '.friends' do
     let(:result) { Steam::User.friends(playerid) }
@@ -26,7 +26,8 @@ describe Steam::User do
     end
 
     it 'returns an error on a bad friend relationship' do
-      expect { Steam::User.friends(playerid2, relationship: :sadsad) }.to raise_error(Steam::JSONError)
+      expect { Steam::User.friends(playerid2, relationship: :sadsad) }
+        .to raise_error(Steam::JSONError)
     end
   end
 
@@ -36,7 +37,7 @@ describe Steam::User do
     end
 
     it 'returns a blank list for bad ids' do
-      expect(Steam::User.bans(7993276293)).to eq({ 'players' => [] })
+      expect(Steam::User.bans('7993276293')).to eq({ 'players' => [] })
     end
 
     it 'allow users to check bans for multiple steamids' do
