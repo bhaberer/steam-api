@@ -4,14 +4,21 @@ module Steam
   # @since 1.0.0
   module Apps
     # Get Steam Applications
-    # @return [Hash] A list of objects containing the title and app ID of
+    # @return [Hash] A hash of objects containing the title and app ID of
     #   each program available in the store.
     # @see http://wiki.teamfortress.com/wiki/WebAPI/GetAppList
     def self.get_all
+      app_list = {}
       response = client.get('GetApplist/v2')
                        .parse_key('applist')
                        .parse_key('apps')
-      response
+
+      # Render the list of hashes into one large hash
+      response.collect do |app|
+        app_list[app.dig('appid')] = app.dig('name')
+      end
+
+      app_list
     end
 
     # Get Servers at Address
